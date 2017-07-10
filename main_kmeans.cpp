@@ -81,7 +81,7 @@ int main(int argc, char const *argv[])
 				float x = point[k].r - centroid[i].r;
 				float y = point[k].g - centroid[i].g;
 				float z = point[k].b - centroid[i].b;
-				float distance = std::pow(x,2) + std::pow(y,2) + std::pow(z,2);
+				float distance = x*x + y*y + z*z;
 				if (distance < best_distance) {
 					best_distance = distance;
 					best_centroid = i;
@@ -108,6 +108,11 @@ int main(int argc, char const *argv[])
 
 
 	auto end = std::chrono::high_resolution_clock::now();
+
+	auto time_elapsed = (end - start);
+
+	std::chrono::duration<double> diff = end-start;
+    std::cout << "Elapsed time: " << diff.count() << std::endl;
 
 	return 0;
 }
