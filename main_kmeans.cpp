@@ -14,13 +14,12 @@
 int main(int argc, char const *argv[])
 {
 
-	std::size_t nb_point = 14740;//56; //00;
-	std::size_t nb_cluster = 64;
-	const std::size_t nb_iter = 20;
+	const std::size_t nb_point = 14740;//56; //00;
+	const std::size_t nb_cluster = 12;
+	const std::size_t nb_iter = 10;
 
 
-	std::vector<double> c(nb_point);
-
+	
 	std::vector<Pixel> point(nb_point);
 	std::vector<std::size_t> cluster(nb_point);
 
@@ -29,10 +28,10 @@ int main(int argc, char const *argv[])
 
 	std::default_random_engine engine{};
 	std::uniform_real_distribution<float> r_dist{0.0f, 1.0f};
-	std::uniform_int_distribution<std::size_t> i_dist{0, nb_cluster};
+	std::uniform_int_distribution<std::size_t> i_dist{0, nb_cluster - 1};
 
 
-// inizialization of the points and their cluster
+    // inizialization of the points and their cluster
 	for(std::size_t k = 0; k<nb_point; ++k){
 		point[k].r = r_dist(engine);
 		point[k].g = r_dist(engine);
@@ -47,7 +46,7 @@ int main(int argc, char const *argv[])
 	std::size_t iteration = 0;
 
 
-			//compute the centroid of the clusters
+		//compute the centroid of the clusters
 		for (std::size_t i = 0; i < nb_cluster; ++i){
 			centroid[i].r += r_dist(engine);
 			centroid[i].g += r_dist(engine);
@@ -98,17 +97,16 @@ int main(int argc, char const *argv[])
 
 	}
 
-
-
 	std::ofstream myfile;
-  	myfile.open ("initial.dat");
-  	//myfile << "Writing the initial distribution of points.\n";
+    myfile.open ("initial.dat");
+    //myfile << "Writing the initial distribution of points.\n";
 
-	for(std::size_t k = 0; k<nb_point; ++k){
-		myfile << point[k].r << "," << point[k].g << "," << point[k].b << "," << cluster[k] << std::endl;
-	}
+    for(std::size_t k = 0; k<nb_point; ++k){
+        myfile << point[k].r << "," << point[k].g << "," << point[k].b << "," << cluster[k] << std::endl;
+    }
 
-	myfile.close();
+    myfile.close();
+
 
 	auto end = std::chrono::high_resolution_clock::now();
 
