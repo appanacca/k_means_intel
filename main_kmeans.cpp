@@ -14,8 +14,8 @@
 int main(int argc, char const *argv[])
 {
 
-	const std::size_t nb_point = 14740;//56; //00;
-	const std::size_t nb_cluster = 12;
+	const std::size_t nb_point = 1474056; //00;
+	const std::size_t nb_cluster = 128;
 	const std::size_t nb_iter = 10;
 
 
@@ -93,13 +93,12 @@ int main(int argc, char const *argv[])
 		//exit once convergence is reached
 		++iteration;
 
-		std::cout << iteration << std::endl;
+		//std::cout << iteration << std::endl;
 
 	}
 
 	std::ofstream myfile;
     myfile.open ("initial.dat");
-    //myfile << "Writing the initial distribution of points.\n";
 
     for(std::size_t k = 0; k<nb_point; ++k){
         myfile << point[k].r << "," << point[k].g << "," << point[k].b << "," << cluster[k] << std::endl;
