@@ -47,7 +47,7 @@ int main(int argc, char const *argv[])
 
 
 		//compute the centroid of the clusters
-		for (std::size_t i = 0; i < nb_cluster; ++i){
+		for (std::ptrdiff_t i = 0; i < nb_cluster; ++i){
 			centroid[i].r += r_dist(engine);
 			centroid[i].g += r_dist(engine);
 			centroid[i].b += r_dist(engine);
@@ -57,16 +57,16 @@ int main(int argc, char const *argv[])
 	while (iteration < nb_iter) {
 
 
-		for (std::size_t k = 0;  k < nb_cluster; ++k){
-			std::size_t i = cluster[k];
+		for (std::ptrdiff_t k = 0;  k < nb_cluster; ++k){
+			std::ptrdiff_t i = cluster[k];
 			centroid[i].r += point[k].r;
 			centroid[i].g += point[k].g;
 			centroid[i].b += point[k].b;
 			++point_per_cluster[i];
 		}
 
-		for (std::size_t i = 0; i < nb_cluster; ++i){
-			std:size_t nb_point_cluster = point_per_cluster[i];
+		for (std::ptrdiff_t i = 0; i < nb_cluster; ++i){
+			std::ptrdiff_t nb_point_cluster = point_per_cluster[i];
 			centroid[i].r /= nb_point_cluster;
 			centroid[i].g /= nb_point_cluster;
 			centroid[i].b /= nb_point_cluster;
@@ -74,10 +74,10 @@ int main(int argc, char const *argv[])
 
 
 		//reassign points to clusters
-		for (std::size_t k = 0; k < nb_point; ++k){
+		for (std::ptrdiff_t k = 0; k < nb_point; ++k){
 			float best_distance = std::numeric_limits<float>::max();
-			std::size_t best_centroid = -1;
-			for (std::size_t i = 0; i < nb_cluster; ++i){
+			std::ptrdiff_t best_centroid = -1;
+			for (std::ptrdiff_t i = 0; i < nb_cluster; ++i){
 				float x = point[k].r - centroid[i].r;
 				float y = point[k].g - centroid[i].g;
 				float z = point[k].b - centroid[i].b;
@@ -108,8 +108,6 @@ int main(int argc, char const *argv[])
 
 
 	auto end = std::chrono::high_resolution_clock::now();
-
-	auto time_elapsed = (end - start);
 
 	std::chrono::duration<double> diff = end-start;
     std::cout << "Elapsed time: " << diff.count() << std::endl;
