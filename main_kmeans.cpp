@@ -3,6 +3,7 @@
 #include <random>
 #include <chrono>
 #include <fstream>
+#include <omp.h>
 
 	class PixelVector{
 	public:
@@ -15,6 +16,7 @@
 
 int main(int argc, char const *argv[])
 {
+
 
 	const std::size_t nb_point = 1474056; //00;
 	const std::size_t nb_cluster = 128;
@@ -75,6 +77,7 @@ int main(int argc, char const *argv[])
 
 
 		//reassign points to clusters
+		#pragma omp parallel for num_threads(4)
 		for (int k = 0; k < nb_point; ++k){
 			float best_distance = std::numeric_limits<float>::max();
 			int best_centroid = -1;

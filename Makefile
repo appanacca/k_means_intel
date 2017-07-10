@@ -1,4 +1,4 @@
-CPPFLAGS=-g -std=c++11 -O2
+CPPFLAGS=-g -std=c++11 -O2 -fopenmp
 CPPCOMP=g++
 
 SRCS=main_kmeans.cpp
